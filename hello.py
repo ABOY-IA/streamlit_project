@@ -235,6 +235,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
 import logging
+import bcrypt
 
 # Configurer le logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -342,3 +343,20 @@ st.write(f"Résultat mis à jour : {st.session_state['resultat']}")
 # Téléchargement de fichiers
 st.header("Téléchargement et gestion des fichiers")
 st.download_button(label="Télécharger le fichier CSV", data=data.to_csv(index=False), file_name='gender_submission.csv', mime='text/csv')
+
+# Masquer la saisie de mot de passe
+mot_de_passe = st.text_input("Entrez votre mot de passe", type="password")
+
+# Vérification du mot de passe et hachage
+if mot_de_passe:
+    # Hasher le mot de passe
+    hashed = bcrypt.hashpw(mot_de_passe.encode('utf-8'), bcrypt.gensalt())
+    st.write("Mot de passe haché : ", hashed)
+
+    # Vérification du mot de passe
+    mot_de_passe_verif = st.text_input("Vérifiez votre mot de passe", type="password")
+    
+    if mot_de_passe_verif and bcrypt.checkpw(mot_de_passe_verif.encode('utf-8'), hashed):
+        st.write("Mot de passe vérifié avec succès !")
+    elif mot_de_passe_verif:
+        st.error("Le mot de passe ne correspond pas.")
