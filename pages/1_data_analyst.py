@@ -85,10 +85,16 @@ if uploaded_file is not None:
     st.write(data_filtre)
 
     # Ajouter un bouton pour télécharger les données filtrées en CSV
-    csv_buffer = io.StringIO()
-    data_filtre.to_csv(csv_buffer, index=False)
-    csv_buffer.seek(0)
-    st.download_button(label="Télécharger les données filtrées en CSV", data=csv_buffer, file_name="donnees_filtrees.csv", mime="text/csv")
+    csv_buffer = io.BytesIO()
+    csv_buffer.write(data_filtre.to_csv(index=False).encode('utf-8'))
+    csv_buffer.seek(0)  # Repositionner au début du fichier
+
+    st.download_button(
+        label="Télécharger les données filtrées en CSV", 
+        data=csv_buffer, 
+        file_name="donnees_filtrees.csv", 
+        mime="text/csv"
+    )
 
 else:
     st.warning("Veuillez télécharger un fichier CSV pour commencer l'analyse.")
