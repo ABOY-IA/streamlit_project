@@ -1,7 +1,3 @@
-"""
-Version initiale en suivant l'ordre des questions
-"""
-
 # import streamlit as st
 # import pandas as pd
 # import matplotlib.pyplot as plt
@@ -225,9 +221,7 @@ Version initiale en suivant l'ordre des questions
 #     st.write("Aperçu du fichier téléchargé :")
 #     st.write(data_telecharge.head())
 
-"""
-Version améliorée à partir de la Q16
-"""
+# Version améliorée à partir de la Q16
 
 import streamlit as st
 import pandas as pd
